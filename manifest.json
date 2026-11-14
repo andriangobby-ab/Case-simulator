@@ -1,7 +1,7 @@
 {
   "background_color": "#ffffff",
   "dir": "ltr",
-  "display": "standalone",
+  "display": "fullscreen",
   "name": "Case Simulator",
   "orientation": "any",
   "scope": "/Case-simulator/",
