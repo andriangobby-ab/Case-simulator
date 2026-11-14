@@ -38,7 +38,7 @@ jobs:
         run: |
           rm -rf myApp/www/*
           cp index.html myApp/www/
-          cp *.jpg myApp/www/ || true
+          cp *.png myApp/www/ || true
           [ -f config.xml ] && cp config.xml myApp/ || true
           [ -f icon.png ] && cp icon.png myApp/ || true
 
