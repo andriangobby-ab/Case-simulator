@@ -4,9 +4,6 @@ on:
   push:
     branches: [ main ]
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,12 +44,9 @@ jobs:
           cd myApp
           cordova build android --release
 
-      - name: Copy APK to Root for Easy Download
-        run: |
-          find myApp/platforms/android/app/build/outputs/apk/ -name "*.apk" -exec cp {} ../game-release.apk \;
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "bot@github.com"
-          git add ../game-release.apk || true
-          git commit -m "Auto-add built APK" || true
-          git push || true
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: game-apk
+          path: myApp/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
           
