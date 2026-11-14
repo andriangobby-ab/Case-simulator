@@ -38,7 +38,7 @@ jobs:
         run: |
           rm -rf myApp/www/*
           cp index.html myApp/www/
-          cp *.png myApp/www/ || true
+          cp *.jpg myApp/www/ || true
           [ -f config.xml ] && cp config.xml myApp/ || true
           [ -f icon.png ] && cp icon.png myApp/ || true
 
@@ -47,11 +47,12 @@ jobs:
           cd myApp
           cordova build android --release
 
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: game-apk
-          path: |
-            myApp/platforms/android/app/build/outputs/apk/release/*.apk
-            myApp/platforms/android/app/build/outputs/apk/debug/*.apk
-            
+      - name: Copy APK to Root for Easy Download
+        run: |
+          find myApp/platforms/android/app/build/outputs/apk/ -name "*.apk" -exec cp {} ../game-release.apk \;
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "bot@github.com"
+          git add ../game-release.apk || true
+          git commit -m "Auto-add built APK" || true
+          git push || true
+          
