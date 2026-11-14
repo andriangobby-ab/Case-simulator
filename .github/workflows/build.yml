@@ -36,6 +36,8 @@ jobs:
           rm -rf myApp/www/*
           cp index.html myApp/www/
           cp *.jpg myApp/www/ || true
+          [ -f config.xml ] && cp config.xml myApp/ || true
+          [ -f icon.png ] && cp icon.png myApp/ || true
 
       - name: Build APK (Release)
         run: |
@@ -49,4 +51,16 @@ jobs:
           path: |
             myApp/platforms/android/app/build/outputs/apk/release/*.apk
             myApp/platforms/android/app/build/outputs/apk/debug/*.apk
-            
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/heads/')
+        with:
+          tag_name: v1.0.0
+          name: Case Simulator VIP v1.0.0
+          files: |
+            myApp/platforms/android/app/build/outputs/apk/release/*.apk
+            myApp/platforms/android/app/build/outputs/apk/debug/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
