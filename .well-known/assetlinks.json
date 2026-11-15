@@ -1,0 +1,1 @@
+[{ "relation": ["delegate_permission/common.handle_all_urls"], "target": { "namespace": "android_app", "package_name": "io.github.andriangobby_ab.twa", "sha256_cert_fingerprints": ["1E:AD:AF:66:5C:EA:4D:0D:DB:A1:67:FE:5B:E8:C4:9E:62:57:EC:33:EA:54:7F:E7:50:A3:B1:F8:CC:CF:E9:EC"] } }]
